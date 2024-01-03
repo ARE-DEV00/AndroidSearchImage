@@ -13,17 +13,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 
 @Composable
-fun Test(
+fun ButtonTest(
+    title:String,
     modifier: Modifier = Modifier
 ) {
-    /*val testViewModel: TestViewModel = hiltViewModel<TestViewModel>()
+    val testViewModel: ButtonTestViewModel = hiltViewModel<ButtonTestViewModel>()
 
-    val textStr = testViewModel.text.observeAsState() ?: ""*/
+    val textStr = testViewModel.text.observeAsState().value ?: ""
     Box(modifier.background(Color.White)) {
         Button(onClick = {
-           // testViewModel.callTest()
+            testViewModel.callTest(title)
         }) {
-           // Text(text = "$textStr")
+            Text(text = textStr)
         }
     }
 }
@@ -31,5 +32,5 @@ fun Test(
 @Preview(name = "Test")
 @Composable
 private fun PreviewTest() {
-    Test()
+    ButtonTest("버튼")
 }

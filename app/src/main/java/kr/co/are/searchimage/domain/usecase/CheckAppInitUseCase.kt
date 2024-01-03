@@ -4,13 +4,13 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class CheckAppInitUseCase @Inject constructor(
+class TestUseCase @Inject constructor(
 ) {
 
-    suspend operator fun invoke(): Flow<String> {
+    suspend operator fun invoke(title:String): Flow<String> {
         return channelFlow {
 
-            send("테스트입니다.")
+            send("$title in usecase")
 
             awaitClose()
         }

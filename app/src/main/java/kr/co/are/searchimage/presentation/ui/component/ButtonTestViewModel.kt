@@ -8,23 +8,28 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kr.co.are.searchimage.domain.usecase.CheckAppInitUseCase
+import kr.co.are.searchimage.domain.usecase.TestUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class TestViewModel @Inject constructor(
-    private val checkAppInitUseCase:CheckAppInitUseCase
+class ButtonTestViewModel @Inject constructor(
+    private val checkAppInitUseCase:TestUseCase
 ) : ViewModel() {
 
     private val _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
 
-    fun callTest(){
+    private var callCnt = 0
+
+    fun callTest(title:String){
         viewModelScope.launch {
-            checkAppInitUseCase()
-                .catch {  }
+            checkAppInitUseCase(title)
+                .catch {
+                    print(it)
+                }
                 .collectLatest {
-                    _text.value = it
+                    print("[TEST]$it")
+                    _text.value = "[${callCnt++}]${it}"
                 }
         }
     }

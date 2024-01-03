@@ -12,9 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import kr.co.are.searchimage.presentation.ui.component.Test
+import dagger.hilt.android.AndroidEntryPoint
+import kr.co.are.searchimage.presentation.ui.component.ButtonTest
 import kr.co.are.searchimage.ui.theme.SearchImageTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
                         Greeting("테스트")
-                        Test()
+                        ButtonTest("버튼 테스트")
                     }
 
                 }
