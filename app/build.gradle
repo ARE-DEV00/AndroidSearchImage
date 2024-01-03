@@ -1,9 +1,22 @@
+import org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
+
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
 }
 
 android {
@@ -17,12 +30,15 @@ android {
         versionCode 1
         versionName "1.0.0"
 
+        buildConfigField "String", "UNSPLASH_API_URL", localProperties.getProperty("api.unsplash.url")
+        buildConfigField "String", "UNSPLASH_ACCESS_KEY", localProperties.getProperty("api.unsplash.key")
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
-    }
 
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -33,14 +49,20 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
+    kotlinOptions{
+        jvmTarget = "1.8"
+    }
+    tasks.withType(KaptGenerateStubs).configureEach{
+        kotlinOptions{
+            jvmTarget = "1.8"
+        }
     }
     buildFeatures {
+        buildConfig = true
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.5.1'
+        kotlinCompilerExtensionVersion '1.5.4'
     }
     packaging {
         resources {
@@ -62,16 +84,37 @@ dependencies {
 
 
     /*Add Library*/
-    /*Lottie*/
-    implementation 'com.airbnb.android:lottie:4.2.0'
-
-    /*DI - Hilt*/
+    /*Hilt*/
     implementation 'androidx.hilt:hilt-navigation-compose:1.1.0'
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
+    /*Compose*/
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2'
     implementation 'androidx.compose.runtime:runtime-livedata:1.5.4'
+
+    /*Lottie*/
+    implementation 'com.airbnb.android:lottie:4.2.0'
+
+    /*Logger*/
+    implementation 'com.orhanobut:logger:2.2.0'
+
+    // Network & Serialization
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.2"
+    implementation "com.squareup.okhttp3:okhttp:4.9.2"
+
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    implementation 'com.squareup.moshi:moshi-kotlin:1.14.0'
+
+    /*Firebase*/
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-perf-ktx'
 
 
     testImplementation 'junit:junit:4.13.2'
