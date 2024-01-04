@@ -7,22 +7,10 @@ import kr.co.are.searchimage.domain.repositroy.ApiRepository
 import javax.inject.Inject
 
 class TestUseCase @Inject constructor(
-    private val apiRepository:ApiRepository
 ) {
-
-    suspend operator fun invoke(title:String): Flow<String> {
-        return channelFlow {
-
-            apiRepository.getPhotoList(1,2)
-                .catch {  }
-                .collectLatest {
-                    Logger.d(it.size)
-                }
-
-            send("$title in usecase")
-
-
-            awaitClose()
+    suspend operator fun invoke(title: String): Flow<String> {
+        return flow {
+            emit("$title in usecase")
         }
     }
 }
