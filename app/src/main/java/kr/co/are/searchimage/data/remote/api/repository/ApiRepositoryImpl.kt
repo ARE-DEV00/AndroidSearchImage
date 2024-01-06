@@ -1,13 +1,18 @@
 package kr.co.are.searchimage.data.remote.api.repository
 
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kr.co.are.searchimage.data.model.exception.ErrorResponse
+import kr.co.are.searchimage.data.remote.api.model.exception.ErrorResponse
 import kr.co.are.searchimage.data.remote.api.ApiService
+import kr.co.are.searchimage.data.remote.api.model.response.PhotoDetailResponse
+import kr.co.are.searchimage.data.remote.api.pagingsoruce.PhotoDetailPagingSource
 import kr.co.are.searchimage.data.remote.utils.ApiExceptionUtil
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
+import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity.*
 import kr.co.are.searchimage.domain.entitiy.SearchPhotoListEntity
 import kr.co.are.searchimage.domain.enums.ExceptionCodeStatus
 import kr.co.are.searchimage.domain.repositroy.ApiRepository
@@ -17,8 +22,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ApiRepositoryImpl @Inject constructor(
-    private val apiService: ApiService,
-    private val retrofit: Retrofit
+    private val apiService: ApiService, private val retrofit: Retrofit
 ) : ApiRepository {
 
     override suspend fun getPhotoList(
@@ -32,14 +36,7 @@ class ApiRepositoryImpl @Inject constructor(
                     val photoDetailResponseList = response.body()
                     val photoDetailEntityList =
                         photoDetailResponseList?.map { photoDetailResponse ->
-                            PhotoDetailEntity(
-                                id = photoDetailResponse.id,
-                                raw = photoDetailResponse.urls?.raw,
-                                full = photoDetailResponse.urls?.full,
-                                regular = photoDetailResponse.urls?.regular,
-                                small = photoDetailResponse.urls?.small,
-                                thumb = photoDetailResponse.urls?.thumb,
-                            )
+                            convertPhotoDetailEntity(photoDetailResponse)
                         } ?: emptyList()
                     emit(photoDetailEntityList)
                 } else {
@@ -62,6 +59,22 @@ class ApiRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getPagingPhotoList(
+        perPage: Int
+    ): Flow<Pager<Int, PhotoDetailEntity>> {
+        return flow {
+            emit(
+                Pager(config = PagingConfig(
+                    pageSize = 20, enablePlaceholders = false
+                ), pagingSourceFactory = {
+                    PhotoDetailPagingSource(
+                        apiService = apiService, perPage
+                    )
+                })
+            )
+        }
+    }
+
     override suspend fun getPhotoDetail(id: String): Flow<PhotoDetailEntity> {
         return flow {
             try {
@@ -71,14 +84,7 @@ class ApiRepositoryImpl @Inject constructor(
 
                     if (photoDetailResponse != null) {
                         emit(
-                            PhotoDetailEntity(
-                                id = photoDetailResponse.id,
-                                raw = photoDetailResponse.urls?.raw,
-                                full = photoDetailResponse.urls?.full,
-                                regular = photoDetailResponse.urls?.regular,
-                                small = photoDetailResponse.urls?.small,
-                                thumb = photoDetailResponse.urls?.thumb,
-                            )
+                            convertPhotoDetailEntity(photoDetailResponse)
                         )
                     }
 
@@ -103,10 +109,7 @@ class ApiRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchPhotoList(
-        query: String,
-        page: Int,
-        perPage: Int,
-        orderBy: String
+        query: String, page: Int, perPage: Int, orderBy: String
     ): Flow<SearchPhotoListEntity> {
         return flow {
             try {
@@ -115,14 +118,7 @@ class ApiRepositoryImpl @Inject constructor(
                     val searchPhotoList = response.body()
                     val photoDetailEntityList =
                         searchPhotoList?.results?.map { photoDetailResponse ->
-                            PhotoDetailEntity(
-                                id = photoDetailResponse.id,
-                                raw = photoDetailResponse.urls?.raw,
-                                full = photoDetailResponse.urls?.full,
-                                regular = photoDetailResponse.urls?.regular,
-                                small = photoDetailResponse.urls?.small,
-                                thumb = photoDetailResponse.urls?.thumb,
-                            )
+                            convertPhotoDetailEntity(photoDetailResponse)
                         } ?: emptyList()
                     emit(
                         SearchPhotoListEntity(
@@ -151,12 +147,30 @@ class ApiRepositoryImpl @Inject constructor(
         }
     }
 
+    private fun convertPhotoDetailEntity(photoDetailResponse: PhotoDetailResponse): PhotoDetailEntity {
+        return PhotoDetailEntity(
+            imageInfo = ImageInfo(
+                id = photoDetailResponse.id,
+                author = photoDetailResponse.user?.name ?: "",
+                width = photoDetailResponse.width ?: -1,
+                height = photoDetailResponse.height ?: -1,
+                createdAt = photoDetailResponse.createdAt ?: "",
+                description = photoDetailResponse.description ?: ""
+            ),
+            imageUrl = ImageUrl(
+                raw = photoDetailResponse.urls?.raw,
+                full = photoDetailResponse.urls?.full,
+                regular = photoDetailResponse.urls?.regular,
+                small = photoDetailResponse.urls?.small,
+                thumb = photoDetailResponse.urls?.thumb,
+            ),
+        )
+    }
 
     private fun errorConverter(errorBody: ResponseBody?): ErrorResponse? {
         return errorBody?.let {
             retrofit.responseBodyConverter<ErrorResponse>(
-                ErrorResponse::class.java,
-                ErrorResponse::class.java.annotations
+                ErrorResponse::class.java, ErrorResponse::class.java.annotations
             ).convert(it)
         }
     }

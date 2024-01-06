@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.data.model.response
+package kr.co.are.searchimage.data.remote.api.model.response
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

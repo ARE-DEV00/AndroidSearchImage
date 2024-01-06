@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.data.model.exception
+package kr.co.are.searchimage.data.remote.api.model.exception
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -1,6 +1,6 @@
 package kr.co.are.searchimage.data.remote.utils
 
-import kr.co.are.searchimage.data.model.exception.ErrorResponse
+import kr.co.are.searchimage.data.remote.api.model.exception.ErrorResponse
 import kr.co.are.searchimage.domain.enums.ExceptionCodeStatus
 import kr.co.are.searchimage.domain.exception.AppException
 

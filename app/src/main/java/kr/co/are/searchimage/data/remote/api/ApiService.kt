@@ -1,8 +1,8 @@
 package kr.co.are.searchimage.data.remote.api
 
 
-import kr.co.are.searchimage.data.model.response.PhotoDetailResponse
-import kr.co.are.searchimage.data.model.response.SearchPhotoListResponse
+import kr.co.are.searchimage.data.remote.api.model.response.PhotoDetailResponse
+import kr.co.are.searchimage.data.remote.api.model.response.SearchPhotoListResponse
 import retrofit2.Response
 import retrofit2.http.*
 

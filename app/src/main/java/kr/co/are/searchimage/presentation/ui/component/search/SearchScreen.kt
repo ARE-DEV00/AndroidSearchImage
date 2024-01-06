@@ -23,9 +23,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.compose.collectAsLazyPagingItems
 import kr.co.are.searchimage.R
 import kr.co.are.searchimage.presentation.ui.component.navigation.NavRoutes
 import kr.co.are.searchimage.presentation.ui.component.photolist.PhotoList
+import kr.co.are.searchimage.presentation.ui.component.photolist.PhotoPagingList
 import kr.co.are.searchimage.presentation.ui.component.sample.ButtonTest
 
 
@@ -35,8 +37,12 @@ fun SearchScreen(
     navController: NavController,
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
-    var page = 1
-    viewModel.getPhotoInfoList(page++)
+    //var page = 1
+    //viewModel.getPhotoInfoList(page++)
+    viewModel.getPagingPhotoInfoList()
+    val photoListPager = viewModel.photoListPager.collectAsLazyPagingItems()
+
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -60,10 +66,8 @@ fun SearchScreen(
                 .fillMaxHeight()
                 .fillMaxWidth()
         ) {
-            val list = viewModel.photoList.observeAsState().value ?: emptyArray()
-            PhotoList(list = list) {
-                viewModel.getPhotoInfoList(page++)
-            }
+
+            PhotoPagingList(lazyPagingItems = photoListPager)
 
             Button(onClick = {
                 navController.navigate(NavRoutes.Detail.route)
