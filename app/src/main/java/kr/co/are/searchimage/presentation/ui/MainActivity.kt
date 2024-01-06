@@ -16,7 +16,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             SearchImageTheme {
                 AppNavigation()
-
             }
         }
     }
@@ -26,6 +25,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     SearchImageTheme {
-
+        AppNavigation()
     }
 }
