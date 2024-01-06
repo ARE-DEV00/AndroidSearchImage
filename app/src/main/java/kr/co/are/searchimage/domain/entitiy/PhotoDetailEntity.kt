@@ -13,12 +13,12 @@ data class PhotoDetailEntity(
     )
 
     data class ImageInfo(
-        val id: String,
-        val author: String,
-        val width: Int,
-        val height: Int,
-        val createdAt: String,
-        val description: String,
+        val id: String = "",
+        val author: String = "",
+        val width: Int = 0,
+        val height: Int = 0,
+        val createdAt: String = "",
+        val description: String = "",
     )
 
 }

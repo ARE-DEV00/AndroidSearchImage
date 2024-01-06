@@ -63,7 +63,7 @@ class ButtonTestViewModel @Inject constructor(
                 .collectLatest {
                     Logger.d("#### ButtonTestViewModel-getPhotoInfoList")
                     it.list.forEachIndexed { index, obj ->
-                        Logger.d("$index: ${obj.id} / ${obj.thumb}")
+                        Logger.d("$index: ${obj.imageInfo}")
                     }
                 }
         }

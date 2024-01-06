@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.presentation.ui.component.search
+package kr.co.are.searchimage.presentation.ui.screen.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,7 +28,11 @@ class SearchScreenViewModel @Inject constructor(
     //private val _photoListPager = MutableLiveData<Pager<Int, PhotoDetailEntity>>()
     lateinit var photoListPager: Flow<PagingData<PhotoDetailEntity>>
 
-    fun getPagingPhotoInfoList() {
+    init{
+        getPagingPhotoInfoList()
+    }
+
+    private fun getPagingPhotoInfoList() {
         viewModelScope.launch {
             getPagingPhotoInfoListUseCase()
                 .catch {

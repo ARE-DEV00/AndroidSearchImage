@@ -29,11 +29,11 @@ class PhotoDetailPagingSource(
                             description = photoDetailResponse.description ?: ""
                         ),
                         imageUrl = PhotoDetailEntity.ImageUrl(
-                            raw = photoDetailResponse.urls?.raw,
-                            full = photoDetailResponse.urls?.full,
-                            regular = photoDetailResponse.urls?.regular,
-                            small = photoDetailResponse.urls?.small,
-                            thumb = photoDetailResponse.urls?.thumb,
+                            raw = photoDetailResponse.urls?.raw?: "",
+                            full = photoDetailResponse.urls?.full?: "",
+                            regular = photoDetailResponse.urls?.regular?: "",
+                            small = photoDetailResponse.urls?.small?: "",
+                            thumb = photoDetailResponse.urls?.thumb?: "",
                         )
                     )
                 }

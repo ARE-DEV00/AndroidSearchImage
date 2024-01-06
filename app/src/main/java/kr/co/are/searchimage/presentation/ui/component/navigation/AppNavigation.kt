@@ -1,33 +1,42 @@
 package kr.co.are.searchimage.presentation.ui.component.navigation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import kr.co.are.searchimage.presentation.ui.component.bookmark.BookmarkScreen
-import kr.co.are.searchimage.presentation.ui.component.detail.DetailScreen
-import kr.co.are.searchimage.presentation.ui.component.search.SearchScreen
+import kr.co.are.searchimage.presentation.ui.screen.bookmark.BookmarkScreen
+import kr.co.are.searchimage.presentation.ui.screen.detail.DetailScreen
+import kr.co.are.searchimage.presentation.ui.screen.search.SearchScreen
 
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavRoutes.Search.route) {
+    val slideInOut = fadeIn() + slideInHorizontally(
+        initialOffsetX = { 300 },
+        animationSpec = tween(300)
+    )
 
-        composable(NavRoutes.Search.route) {
+    NavHost(navController = navController, startDestination = NavRoutes.Search.route,
+        enterTransition = { slideInOut },
+        popEnterTransition = { slideInOut }) {
+
+        composable(route = NavRoutes.Search.route) {
             SearchScreen(navController = navController)
         }
 
-        composable(NavRoutes.Detail.route) {
-            DetailScreen(navController = navController)
+        composable(route = NavRoutes.Detail.route + "/{${NavRoutes.NavParameter.PHOTO_ID}}") {
+            val id = it.arguments?.getString("${NavRoutes.NavParameter.PHOTO_ID}")
+            if (id != null) {
+                DetailScreen(navController = navController, id = id)
+            }
         }
 
-        composable(NavRoutes.Bookmark.route) {
+        composable(route = NavRoutes.Bookmark.route) {
             BookmarkScreen(navController = navController)
         }
 
