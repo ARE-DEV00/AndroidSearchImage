@@ -45,7 +45,7 @@ fun DetailScreen(
     }
     val photoDetailEntity = viewModel.loadPhotoDetailEntity.observeAsState().value
 
-    val isBookmark = remember { mutableStateOf(false) }
+    val isBookmark = viewModel.isBookmark.observeAsState().value ?: false
 
 
     AppHeaderScreen(
@@ -78,19 +78,25 @@ fun DetailScreen(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                         .padding(bottom = 50.dp, end = 20.dp),
-                    onClick = { isBookmark.value = !isBookmark.value },
+                    onClick = {
+                        if (isBookmark) {
+                            viewModel.deleteBookmarkInfo(id = id)
+                        } else {
+                            viewModel.addBookmarkInfo(id = id)
+                        }
+                    },
                     shape = CircleShape,
                     containerColor = White
                 ) {
-                    if (isBookmark.value) {
+                    if (isBookmark) {
                         Icon(
-                            imageVector = Icons.Default.FavoriteBorder,
+                            imageVector = Icons.Default.Favorite,
                             contentDescription = null,
                             tint = Color.Red
                         )
                     } else {
                         Icon(
-                            imageVector = Icons.Default.Favorite,
+                            imageVector = Icons.Default.FavoriteBorder,
                             contentDescription = null,
                             tint = Color.Red
                         )

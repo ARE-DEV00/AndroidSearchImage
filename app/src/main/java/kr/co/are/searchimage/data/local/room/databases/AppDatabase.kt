@@ -12,7 +12,7 @@ import kr.co.are.searchimage.data.local.room.entity.TableBookmarkInfoEntity
 )
 
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun settingDao(): BookmarkInfoDao
+    abstract fun bookmarkInfoDao(): BookmarkInfoDao
 
 
 }

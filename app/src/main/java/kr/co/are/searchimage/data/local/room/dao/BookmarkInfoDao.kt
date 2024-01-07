@@ -10,11 +10,11 @@ interface BookmarkInfoDao {
     @Update
     fun update(entity: TableBookmarkInfoEntity)
 
-    @Query("SELECT * FROM bookmark_info WHERE id = :id")
-    fun selectBookmarkInfoList(id: String): List<TableBookmarkInfoEntity>
+    @Query("SELECT * FROM bookmark_info")
+    fun selectBookmarkInfoList(): List<TableBookmarkInfoEntity>?
 
     @Query("SELECT * FROM bookmark_info WHERE id = :id")
-    fun selectBookmarkInfoById(id: String): TableBookmarkInfoEntity
+    fun selectBookmarkInfoById(id: String): TableBookmarkInfoEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: TableBookmarkInfoEntity)
