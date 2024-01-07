@@ -1,7 +1,6 @@
 package kr.co.are.searchimage.domain.usecase
 
 import androidx.paging.Pager
-import androidx.paging.PagingData
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
@@ -9,7 +8,7 @@ import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 import kr.co.are.searchimage.domain.repositroy.ApiRepository
 import javax.inject.Inject
 
-class GetPagingPhotoInfoListUseCase @Inject constructor(
+class GetPhotoInfoPagingListUseCase @Inject constructor(
     private val apiRepository: ApiRepository
 ) {
     suspend operator fun invoke(perPage: Int = 20): Flow<Pager<Int, PhotoDetailEntity>> {

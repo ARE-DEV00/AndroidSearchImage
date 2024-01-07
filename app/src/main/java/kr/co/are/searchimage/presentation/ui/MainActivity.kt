@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
-import kr.co.are.searchimage.presentation.ui.component.navigation.AppNavigation
+import kr.co.are.searchimage.presentation.ui.composable.navigation.AppNavigation
 import kr.co.are.searchimage.presentation.ui.theme.SearchImageTheme
 
 @AndroidEntryPoint

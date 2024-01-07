@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.presentation.ui.component.navigation
+package kr.co.are.searchimage.presentation.ui.composable.navigation
 
 sealed class NavRoutes(val route: String) {
     data object Search : NavRoutes("search")

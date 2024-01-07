@@ -1,5 +1,6 @@
 package kr.co.are.searchimage.presentation.ui.screen.base
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import kr.co.are.searchimage.presentation.ui.component.header.AppHeader
+import kr.co.are.searchimage.presentation.ui.composable.header.AppHeader
 import kr.co.are.searchimage.presentation.ui.theme.Gray300
 
 @Composable
@@ -21,10 +22,12 @@ fun AppHeaderScreen(
     leftIconImageVectorColor: Color = Color.Black,
     onTabRightIcon: (() -> Unit)? = null,
     onTabLeftIcon: (() -> Unit)? = null,
+    modifier: Modifier,
     composable: @Composable () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
     ) {
         AppHeader(
             headerTitle = headerTitle,

@@ -1,32 +1,35 @@
 package kr.co.are.searchimage.presentation.ui.screen.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
-import kr.co.are.searchimage.domain.usecase.GetPagingPhotoInfoListUseCase
+import kr.co.are.searchimage.domain.usecase.GetPhotoInfoPagingListUseCase
 import kr.co.are.searchimage.domain.usecase.GetPhotoInfoListUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchScreenViewModel @Inject constructor(
     private val getPhotoInfoListUseCase: GetPhotoInfoListUseCase,
-    private val getPagingPhotoInfoListUseCase: GetPagingPhotoInfoListUseCase,
+    private val getPhotoInfoPagingListUseCase: GetPhotoInfoPagingListUseCase,
 ) : ViewModel() {
+
+    private val _searchText = mutableStateOf("")
+    val searchText:State<String> = _searchText
+
 
     //private val _photoListPager = MutableLiveData<Pager<Int, PhotoDetailEntity>>()
     lateinit var photoListPager: Flow<PagingData<PhotoDetailEntity>>
+
 
     init{
         getPagingPhotoInfoList()
@@ -34,7 +37,7 @@ class SearchScreenViewModel @Inject constructor(
 
     private fun getPagingPhotoInfoList() {
         viewModelScope.launch {
-            getPagingPhotoInfoListUseCase()
+            getPhotoInfoPagingListUseCase()
                 .catch {
                     Logger.e(it, it.message.toString())
                 }
@@ -44,4 +47,7 @@ class SearchScreenViewModel @Inject constructor(
         }
     }
 
+    fun search(text:String){
+        _searchText.value = text
+    }
 }

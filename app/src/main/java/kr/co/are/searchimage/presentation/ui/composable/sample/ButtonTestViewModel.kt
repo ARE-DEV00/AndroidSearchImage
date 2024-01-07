@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.presentation.ui.component.sample
+package kr.co.are.searchimage.presentation.ui.composable.sample
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

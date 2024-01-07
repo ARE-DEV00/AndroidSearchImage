@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.presentation.ui.component.photodetail
+package kr.co.are.searchimage.presentation.ui.composable.photodetail
 
 
 import androidx.compose.foundation.background

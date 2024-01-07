@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.presentation.ui.component.sample
+package kr.co.are.searchimage.presentation.ui.composable.sample
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -8,9 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.launch
 
 
 @Composable

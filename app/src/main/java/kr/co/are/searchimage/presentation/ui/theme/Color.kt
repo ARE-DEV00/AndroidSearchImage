@@ -5,7 +5,10 @@ import androidx.compose.ui.graphics.Color
 val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
 
-val Gray50 = Color(0xFFF0F0F5)
+val BgTextField = Color(0xFFE1E1E1)
+val BgTextFieldIcon = Color(0xF909090)
+
+val Gray50 = Color(0xFFF0F0F0)
 val Gray100 = Color(0xFFF5F5F5)
 val Gray200 = Color(0xFFEEEEEE)
 val Gray300 = Color(0xFFE0E0E0)

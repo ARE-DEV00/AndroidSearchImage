@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.presentation.ui.component.navigation
+package kr.co.are.searchimage.presentation.ui.composable.navigation
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn

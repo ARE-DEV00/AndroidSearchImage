@@ -26,7 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
 import kr.co.are.searchimage.R
-import kr.co.are.searchimage.presentation.ui.component.photodetail.PhotoDetail
+import kr.co.are.searchimage.presentation.ui.composable.photodetail.PhotoDetail
 import kr.co.are.searchimage.presentation.ui.screen.base.AppHeaderScreen
 import kr.co.are.searchimage.presentation.ui.theme.Gray50
 import kr.co.are.searchimage.presentation.ui.theme.White
@@ -51,6 +51,7 @@ fun DetailScreen(
     AppHeaderScreen(
         headerTitle = stringResource(id = R.string.screen_detail),
         leftIconImageVector = Icons.Default.ArrowBack,
+        modifier = Modifier,
         onTabLeftIcon = {
             navController.popBackStack()
         }
