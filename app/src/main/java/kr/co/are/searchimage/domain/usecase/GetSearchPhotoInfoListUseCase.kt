@@ -7,7 +7,7 @@ import kr.co.are.searchimage.domain.entitiy.SearchPhotoListEntity
 import kr.co.are.searchimage.domain.repositroy.ApiRepository
 import javax.inject.Inject
 
-class SearchPhotoInfoListUseCase @Inject constructor(
+class GetSearchPhotoInfoListUseCase @Inject constructor(
     private val apiRepository: ApiRepository
 ) {
     suspend operator fun invoke(
@@ -16,12 +16,12 @@ class SearchPhotoInfoListUseCase @Inject constructor(
         perPage: Int
     ): Flow<SearchPhotoListEntity> {
         return channelFlow {
-            apiRepository.searchPhotoList(query, page, perPage)
+            apiRepository.getSearchPhotoList(query, page, perPage)
                 .catch {
                     Logger.e("", it)
                 }
                 .collectLatest {
-                    Logger.d("#### GetPhotoInfoListUseCase")
+                    Logger.d("#### GetSearchPhotoInfoListUseCase")
                     send(it)
                 }
             awaitClose()

@@ -13,7 +13,7 @@ class GetPhotoInfoPagingListUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(perPage: Int = 20): Flow<Pager<Int, PhotoDetailEntity>> {
         return channelFlow {
-            apiRepository.getPagingPhotoList(perPage)
+            apiRepository.getPhotoPagingList(perPage)
                 .catch {
                     Logger.e("", it)
                 }

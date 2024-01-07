@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
@@ -21,6 +22,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kr.co.are.searchimage.R
 import kr.co.are.searchimage.presentation.ui.composable.navigation.NavRoutes
 import kr.co.are.searchimage.presentation.ui.composable.photolist.PhotoPagingList
@@ -35,8 +38,11 @@ fun SearchScreen(
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
     val photoListPager = viewModel.photoListPager.collectAsLazyPagingItems()
+    val searchPhotoListPager = viewModel.searchPhotoListPager.collectAsLazyPagingItems()
     val searchText = viewModel.searchText
     val focusManager = LocalFocusManager.current
+
+    val coroutineScope = rememberCoroutineScope()
 
     AppHeaderScreen(
         headerTitle = stringResource(id = R.string.screen_search),
@@ -79,6 +85,15 @@ fun SearchScreen(
                             }
                         })
                 } else {
+                    if(searchPhotoListPager != null){
+                        PhotoPagingList(lazyPagingItems = searchPhotoListPager,
+                            onTabImage = { id ->
+                                focusManager.clearFocus()
+                                navController.navigate("${NavRoutes.Detail.route}/$id") {
+                                    launchSingleTop = true
+                                }
+                            })
+                    }
 
                 }
 

@@ -13,7 +13,7 @@ interface ApiRepository {
         perPage: Int,
     ): Flow<List<PhotoDetailEntity>>
 
-    suspend fun getPagingPhotoList(
+    suspend fun getPhotoPagingList(
         perPage: Int,
     ): Flow<Pager<Int, PhotoDetailEntity>>
 
@@ -21,11 +21,17 @@ interface ApiRepository {
         id: String
     ): Flow<PhotoDetailEntity>
 
-    suspend fun searchPhotoList(
+    suspend fun getSearchPhotoList(
         query: String,
         page: Int,
         perPage: Int,
         orderBy: String = "latest"
     ): Flow<SearchPhotoListEntity>
+
+    suspend fun getSearchPhotoPagingList(
+        query: String,
+        perPage: Int,
+        orderBy: String = "latest"
+    ): Flow<Pager<Int, PhotoDetailEntity>>
 
 }

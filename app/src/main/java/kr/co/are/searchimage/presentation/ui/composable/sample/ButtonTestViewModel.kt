@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kr.co.are.searchimage.domain.usecase.GetPhotoDetailInfoUseCase
 import kr.co.are.searchimage.domain.usecase.GetPhotoInfoListUseCase
-import kr.co.are.searchimage.domain.usecase.SearchPhotoInfoListUseCase
+import kr.co.are.searchimage.domain.usecase.GetSearchPhotoInfoListUseCase
 import kr.co.are.searchimage.domain.usecase.TestUseCase
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class ButtonTestViewModel @Inject constructor(
     private val testUseCase: TestUseCase,
     private val getPhotoInfoListUseCase: GetPhotoInfoListUseCase,
     private val getPhotoDetailInfoUseCase: GetPhotoDetailInfoUseCase,
-    private val searchPhotoInfoListUseCase: SearchPhotoInfoListUseCase,
+    private val searchPhotoInfoListUseCase: GetSearchPhotoInfoListUseCase,
 ) : ViewModel() {
 
     private val _text = MutableLiveData<String>()

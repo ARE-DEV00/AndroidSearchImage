@@ -3,6 +3,7 @@ package kr.co.are.searchimage.data.remote.api.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,6 +11,7 @@ import kr.co.are.searchimage.data.remote.api.model.exception.ErrorResponse
 import kr.co.are.searchimage.data.remote.api.ApiService
 import kr.co.are.searchimage.data.remote.api.model.response.PhotoDetailResponse
 import kr.co.are.searchimage.data.remote.api.pagingsoruce.PhotoDetailPagingSource
+import kr.co.are.searchimage.data.remote.api.pagingsoruce.SearchPhotoDetailPagingSource
 import kr.co.are.searchimage.data.remote.utils.ApiExceptionUtil
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity.*
@@ -59,18 +61,55 @@ class ApiRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPagingPhotoList(
+    override suspend fun getPhotoPagingList(
         perPage: Int
     ): Flow<Pager<Int, PhotoDetailEntity>> {
         return flow {
             emit(
                 Pager(config = PagingConfig(
-                    pageSize = 20, enablePlaceholders = false
+                    pageSize = 20, enablePlaceholders = true
                 ), pagingSourceFactory = {
                     PhotoDetailPagingSource(
                         apiService = apiService, perPage
                     )
                 })
+            )
+        }
+    }
+
+    private var searchPhotoDetailPagingSource: SearchPhotoDetailPagingSource? = null
+    override suspend fun getSearchPhotoPagingList(
+        query: String,
+        perPage: Int,
+        orderBy: String
+    ): Flow<Pager<Int, PhotoDetailEntity>> {
+        return flow {
+            Logger.e("#### https://api.unsplash.com/search/photos?query=${query}")
+
+            searchPhotoDetailPagingSource?.invalidate()
+            if (searchPhotoDetailPagingSource == null) {
+                searchPhotoDetailPagingSource = SearchPhotoDetailPagingSource(
+                    apiService = apiService,
+                    query = query,
+                    perPage = perPage,
+                    orderBy = orderBy
+                )
+            } else if (searchPhotoDetailPagingSource?.invalid == true) {
+                searchPhotoDetailPagingSource = SearchPhotoDetailPagingSource(
+                    apiService = apiService,
+                    query = query,
+                    perPage = perPage,
+                    orderBy = orderBy
+                )
+            }
+
+            emit(
+                Pager(config = PagingConfig(
+                    pageSize = 20, enablePlaceholders = true,
+                ), pagingSourceFactory = {
+                    searchPhotoDetailPagingSource!!
+                })
+
             )
         }
     }
@@ -108,7 +147,7 @@ class ApiRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun searchPhotoList(
+    override suspend fun getSearchPhotoList(
         query: String, page: Int, perPage: Int, orderBy: String
     ): Flow<SearchPhotoListEntity> {
         return flow {
@@ -158,11 +197,11 @@ class ApiRepositoryImpl @Inject constructor(
                 description = photoDetailResponse.description ?: ""
             ),
             imageUrl = ImageUrl(
-                raw = photoDetailResponse.urls?.raw?: "",
-                full = photoDetailResponse.urls?.full?: "",
-                regular = photoDetailResponse.urls?.regular?: "",
-                small = photoDetailResponse.urls?.small?: "",
-                thumb = photoDetailResponse.urls?.thumb?: "",
+                raw = photoDetailResponse.urls?.raw ?: "",
+                full = photoDetailResponse.urls?.full ?: "",
+                regular = photoDetailResponse.urls?.regular ?: "",
+                small = photoDetailResponse.urls?.small ?: "",
+                thumb = photoDetailResponse.urls?.thumb ?: "",
             ),
         )
     }
