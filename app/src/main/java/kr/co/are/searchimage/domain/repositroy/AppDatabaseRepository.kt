@@ -1,6 +1,9 @@
 package kr.co.are.searchimage.domain.repositroy
 
+import androidx.paging.Pager
+import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
+import kr.co.are.searchimage.data.local.room.entity.TableBookmarkInfoEntity
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 
 interface AppDatabaseRepository {
@@ -28,7 +31,10 @@ interface AppDatabaseRepository {
         id: String,
     ): Flow<PhotoDetailEntity?>
 
-
     suspend fun getBookmarkInfoList(
     ): Flow<List<PhotoDetailEntity>>
+
+    suspend fun getBookmarkInfoPagingList(
+        perPage: Int
+    ): Flow<Pager<Int, PhotoDetailEntity>>
 }

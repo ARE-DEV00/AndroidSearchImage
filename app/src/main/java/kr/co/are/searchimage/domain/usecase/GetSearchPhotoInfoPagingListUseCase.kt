@@ -1,16 +1,18 @@
 package kr.co.are.searchimage.domain.usecase
 
 import androidx.paging.Pager
+import androidx.paging.map
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 import kr.co.are.searchimage.domain.entitiy.SearchPhotoListEntity
 import kr.co.are.searchimage.domain.repositroy.ApiRepository
+import kr.co.are.searchimage.domain.repositroy.AppDatabaseRepository
 import javax.inject.Inject
 
 class GetSearchPhotoInfoPagingListUseCase @Inject constructor(
-    private val apiRepository: ApiRepository
+    private val apiRepository: ApiRepository,
 ) {
     suspend operator fun invoke(
         query: String,
@@ -22,7 +24,7 @@ class GetSearchPhotoInfoPagingListUseCase @Inject constructor(
                     Logger.e("", it)
                 }
                 .collectLatest {
-                    Logger.d("#### GetPhotoInfoListUseCase")
+                    Logger.d("#### GetSearchPhotoInfoPagingListUseCase")
                     send(it)
                 }
             awaitClose()

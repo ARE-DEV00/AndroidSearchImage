@@ -19,6 +19,8 @@ data class PhotoDetailEntity(
         val height: Int = 0,
         val createdAt: String = "",
         val description: String = "",
+
+        var isBookmark:Boolean = false
     )
 
 }

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
+import kr.co.are.searchimage.presentation.ui.composable.header.clickableOnce
 
 @Composable
 fun PhotoPagingList(
@@ -33,7 +34,7 @@ fun PhotoPagingList(
         items(
             lazyPagingItems.itemCount,
         ) { item ->
-            Box(modifier = Modifier.clickable {
+            Box(modifier = Modifier.clickableOnce {
                 lazyPagingItems[item]?.imageInfo?.id?.let { onTabImage(it) }
             }) {
                 AsyncImage(
@@ -45,15 +46,18 @@ fun PhotoPagingList(
                     contentScale = ContentScale.Crop,
                 )
 
-                Icon(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .size(25.dp, 25.dp)
-                        .padding(top=5.dp, end=5.dp),
-                    tint = Color.Red,
-                )
+                if (lazyPagingItems[item]?.imageInfo?.isBookmark == true) {
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .size(25.dp, 25.dp)
+                            .padding(top = 5.dp, end = 5.dp),
+                        tint = Color.Red,
+                    )
+
+                }
 
             }
         }

@@ -2,6 +2,7 @@ package kr.co.are.searchimage.data.local.room
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

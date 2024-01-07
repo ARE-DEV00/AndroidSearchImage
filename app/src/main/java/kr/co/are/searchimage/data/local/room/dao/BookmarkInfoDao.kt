@@ -1,7 +1,9 @@
 package kr.co.are.searchimage.data.local.room.dao
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import kr.co.are.searchimage.data.local.room.entity.TableBookmarkInfoEntity
+import kr.co.are.searchimage.data.local.room.pagesource.BookmarkInfoPagingSource
 
 
 @Dao
@@ -12,6 +14,9 @@ interface BookmarkInfoDao {
 
     @Query("SELECT * FROM bookmark_info")
     fun selectBookmarkInfoList(): List<TableBookmarkInfoEntity>?
+
+    @Query("SELECT * FROM bookmark_info LIMIT 10 OFFSET (:page-1)*:perPage")
+    fun selectBookmarkInfoPagingList(page: Int, perPage: Int): List<TableBookmarkInfoEntity>
 
     @Query("SELECT * FROM bookmark_info WHERE id = :id")
     fun selectBookmarkInfoById(id: String): TableBookmarkInfoEntity?
