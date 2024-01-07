@@ -42,7 +42,6 @@ fun PhotoDetail(
 
     Column(
         modifier = Modifier
-            .padding(20.dp)
             .fillMaxSize()
             .verticalScroll(scrollState)
     ) {
@@ -53,13 +52,14 @@ fun PhotoDetail(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
+                .padding(top = 20.dp)
                 .clip(RoundedCornerShape(15.dp)),
             contentScale = ContentScale.Crop
         )
 
         Box(
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(top = 20.dp, bottom = 100.dp)
                 .clip(RoundedCornerShape(10.dp))
         ) {
             Column(

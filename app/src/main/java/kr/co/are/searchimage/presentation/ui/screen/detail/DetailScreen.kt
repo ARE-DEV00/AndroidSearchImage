@@ -61,17 +61,22 @@ fun DetailScreen(
                     .fillMaxSize()
                     .background(Gray50)
             ) {
-                PhotoDetail(
-                    id = photoDetailEntity.imageInfo.id,
-                    author = photoDetailEntity.imageInfo.author,
-                    width = photoDetailEntity.imageInfo.width,
-                    height = photoDetailEntity.imageInfo.height,
-                    createdAt = photoDetailEntity.imageInfo.createdAt,
-                    imageUrl = photoDetailEntity.imageUrl.regular
-                )
+                Box(modifier = Modifier.padding(start = 20.dp, end = 20.dp)) {
+                    PhotoDetail(
+                        id = photoDetailEntity.imageInfo.id,
+                        author = photoDetailEntity.imageInfo.author,
+                        width = photoDetailEntity.imageInfo.width,
+                        height = photoDetailEntity.imageInfo.height,
+                        createdAt = photoDetailEntity.imageInfo.createdAt,
+                        imageUrl = photoDetailEntity.imageUrl.regular
+                    )
+                }
+
 
                 FloatingActionButton(
-                    modifier = Modifier.align(Alignment.BottomEnd).padding(bottom = 50.dp, end = 20.dp),
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(bottom = 50.dp, end = 20.dp),
                     onClick = { isBookmark.value = !isBookmark.value },
                     shape = CircleShape,
                     containerColor = White
