@@ -44,6 +44,7 @@ class PhotoDetailPagingSource(
                 nextKey = if (photoDetailResponseList.isEmpty()) null else page.plus(1)
             )
         } catch (exception: Exception) {
+            exception.printStackTrace()
             return LoadResult.Error(exception)
         }
     }

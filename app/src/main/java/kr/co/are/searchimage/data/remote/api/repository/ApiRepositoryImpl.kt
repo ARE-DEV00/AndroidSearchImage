@@ -24,7 +24,8 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ApiRepositoryImpl @Inject constructor(
-    private val apiService: ApiService, private val retrofit: Retrofit
+    private val apiService: ApiService,
+    private val retrofit: Retrofit
 ) : ApiRepository {
 
     override suspend fun getPhotoList(
@@ -70,7 +71,8 @@ class ApiRepositoryImpl @Inject constructor(
                     pageSize = 20, enablePlaceholders = true
                 ), pagingSourceFactory = {
                     PhotoDetailPagingSource(
-                        apiService = apiService, perPage
+                        apiService = apiService,
+                        perPage=perPage
                     )
                 })
             )

@@ -42,8 +42,6 @@ fun SearchScreen(
     val searchText = viewModel.searchText
     val focusManager = LocalFocusManager.current
 
-    val coroutineScope = rememberCoroutineScope()
-
     AppHeaderScreen(
         headerTitle = stringResource(id = R.string.screen_search),
         rightIconImageVector = Icons.Default.Favorite,
@@ -85,16 +83,13 @@ fun SearchScreen(
                             }
                         })
                 } else {
-                    if(searchPhotoListPager != null){
-                        PhotoPagingList(lazyPagingItems = searchPhotoListPager,
-                            onTabImage = { id ->
-                                focusManager.clearFocus()
-                                navController.navigate("${NavRoutes.Detail.route}/$id") {
-                                    launchSingleTop = true
-                                }
-                            })
-                    }
-
+                    PhotoPagingList(lazyPagingItems = searchPhotoListPager,
+                        onTabImage = { id ->
+                            focusManager.clearFocus()
+                            navController.navigate("${NavRoutes.Detail.route}/$id") {
+                                launchSingleTop = true
+                            }
+                        })
                 }
 
             }

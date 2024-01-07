@@ -1,18 +1,13 @@
 package kr.co.are.searchimage.data.local.room.repository
 
-import android.net.Uri
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.map
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kr.co.are.searchimage.data.local.room.databases.AppDatabase
 import kr.co.are.searchimage.data.local.room.entity.TableBookmarkInfoEntity
 import kr.co.are.searchimage.data.local.room.pagesource.BookmarkInfoPagingSource
-import kr.co.are.searchimage.data.remote.api.pagingsoruce.PhotoDetailPagingSource
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 import kr.co.are.searchimage.domain.repositroy.AppDatabaseRepository
 import javax.inject.Inject

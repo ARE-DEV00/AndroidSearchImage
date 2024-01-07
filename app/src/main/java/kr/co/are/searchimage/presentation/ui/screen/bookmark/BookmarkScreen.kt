@@ -19,6 +19,7 @@ fun BookmarkScreen(
     viewModel: BookmarkScreenViewModel = hiltViewModel()
 ) {
     val bookmarkInfoList = viewModel.bookmarkInfoListPager.collectAsLazyPagingItems()
+    bookmarkInfoList.refresh()
 
     AppHeaderScreen(
         headerTitle = stringResource(id = R.string.screen_bookmark),
