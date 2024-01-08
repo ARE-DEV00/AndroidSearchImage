@@ -24,9 +24,6 @@ import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.unit.dp
 import kr.co.are.searchimage.presentation.ui.theme.BgTextField
-import kr.co.are.searchimage.presentation.ui.theme.BgTextFieldIcon
-import kr.co.are.searchimage.presentation.ui.theme.Gray400
-import kr.co.are.searchimage.presentation.ui.theme.Gray500
 import kr.co.are.searchimage.presentation.ui.theme.Gray600
 import kr.co.are.searchimage.presentation.ui.theme.Gray800
 
