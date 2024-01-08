@@ -2,12 +2,12 @@ package kr.co.are.searchimage.data.remote.api.pagingsoruce
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.are.searchimage.data.local.room.databases.AppDatabase
 import kr.co.are.searchimage.data.remote.api.ApiService
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
+import timber.log.Timber
 
 class SearchPhotoDetailPagingSource(
     private val apiService: ApiService,
@@ -19,7 +19,7 @@ class SearchPhotoDetailPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PhotoDetailEntity> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            Logger.e("#### SearchPhotoDetailPagingSource-query:$query")
+            Timber.e("#### SearchPhotoDetailPagingSource-query:$query")
             val response = apiService.searchPhotoList(
                 query = query,
                 page = page,

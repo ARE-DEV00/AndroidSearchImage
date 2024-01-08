@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun SearchImagePreview() {
     SearchImageTheme {
         AppNavigation()
     }

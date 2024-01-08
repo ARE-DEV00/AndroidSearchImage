@@ -1,11 +1,11 @@
 package kr.co.are.searchimage.domain.usecase
 
 import androidx.paging.Pager
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 import kr.co.are.searchimage.domain.repositroy.AppDataRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class GetBookmarkInfoDbPagingListUseCase @Inject constructor(
@@ -18,7 +18,7 @@ class GetBookmarkInfoDbPagingListUseCase @Inject constructor(
                     it.printStackTrace()
                 }
                 .collectLatest {
-                    Logger.d("#### GetBookmarkInfoDbPagingListUseCase")
+                    Timber.d("#### GetBookmarkInfoDbPagingListUseCase")
                     send(it)
                 }
             awaitClose()

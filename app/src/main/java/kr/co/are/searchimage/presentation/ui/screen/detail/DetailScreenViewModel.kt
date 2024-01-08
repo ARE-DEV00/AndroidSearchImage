@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -15,6 +14,7 @@ import kr.co.are.searchimage.domain.usecase.AddBookmarkInfoDbUseCase
 import kr.co.are.searchimage.domain.usecase.DeleteBookmarkInfoDbUseCase
 import kr.co.are.searchimage.domain.usecase.GetBookmarkInfoDbUseCase
 import kr.co.are.searchimage.domain.usecase.GetPhotoDetailInfoUseCase
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,7 +35,7 @@ class DetailScreenViewModel @Inject constructor(
         viewModelScope.launch {
             getPhotoDetailInfoUseCase(id = id)
                 .catch {
-                    Logger.e(it, it.message.toString())
+                    Timber.e(it, it.message.toString())
                 }
                 .collectLatest {
                     _loadPhotoDetailEntity.value = it

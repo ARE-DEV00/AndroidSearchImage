@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -13,6 +12,7 @@ import kr.co.are.searchimage.domain.usecase.GetPhotoDetailInfoUseCase
 import kr.co.are.searchimage.domain.usecase.GetPhotoInfoListUseCase
 import kr.co.are.searchimage.domain.usecase.GetSearchPhotoInfoListUseCase
 import kr.co.are.searchimage.domain.usecase.TestUseCase
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -57,13 +57,13 @@ class ButtonTestViewModel @Inject constructor(
                 }*/
             searchPhotoInfoListUseCase("test", page, 10)
                 .catch {
-                    Logger.e(it, "")
+                    Timber.e(it)
 
                 }
                 .collectLatest {
-                    Logger.d("#### ButtonTestViewModel-getPhotoInfoList")
+                    Timber.d("#### ButtonTestViewModel-getPhotoInfoList")
                     it.list.forEachIndexed { index, obj ->
-                        Logger.d("$index: ${obj.imageInfo}")
+                        Timber.d("$index: ${obj.imageInfo}")
                     }
                 }
         }

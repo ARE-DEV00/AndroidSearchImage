@@ -1,11 +1,11 @@
 package kr.co.are.searchimage.domain.usecase
 
 import androidx.paging.Pager
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 import kr.co.are.searchimage.domain.repositroy.AppDataRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class GetSearchPhotoInfoPagingListUseCase @Inject constructor(
@@ -18,10 +18,10 @@ class GetSearchPhotoInfoPagingListUseCase @Inject constructor(
         return channelFlow {
             dataRepository.getSearchPhotoPagingList(query, perPage)
                 .catch {
-                    Logger.e("", it)
+                    Timber.e(it)
                 }
                 .collectLatest {
-                    Logger.d("#### GetSearchPhotoInfoPagingListUseCase")
+                    Timber.d("#### GetSearchPhotoInfoPagingListUseCase")
                     send(it)
                 }
             awaitClose()

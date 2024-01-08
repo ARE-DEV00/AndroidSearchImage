@@ -1,10 +1,10 @@
 package kr.co.are.searchimage.domain.usecase
 
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kr.co.are.searchimage.domain.entitiy.SearchPhotoListEntity
 import kr.co.are.searchimage.domain.repositroy.AppDataRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class GetSearchPhotoInfoListUseCase @Inject constructor(
@@ -18,10 +18,10 @@ class GetSearchPhotoInfoListUseCase @Inject constructor(
         return channelFlow {
             dataRepository.getSearchPhotoList(query, page, perPage)
                 .catch {
-                    Logger.e("", it)
+                    Timber.e(it)
                 }
                 .collectLatest {
-                    Logger.d("#### GetSearchPhotoInfoListUseCase")
+                    Timber.d("#### GetSearchPhotoInfoListUseCase")
                     send(it)
                 }
             awaitClose()

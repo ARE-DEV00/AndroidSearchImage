@@ -3,7 +3,6 @@ package kr.co.are.searchimage.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kr.co.are.searchimage.data.local.room.databases.AppDatabase
@@ -22,6 +21,7 @@ import kr.co.are.searchimage.domain.enums.ExceptionCodeStatus
 import kr.co.are.searchimage.domain.repositroy.AppDataRepository
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
+import timber.log.Timber
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -46,11 +46,11 @@ class AppDataRepositoryImpl @Inject constructor(
                         } ?: emptyList()
                     emit(photoDetailEntityList)
                 } else {
-                    Logger.d("#### response: ${response.errorBody().toString()}")
+                    Timber.d("#### response: ${response.errorBody().toString()}")
                     throw ApiExceptionUtil.apiException(errorConverter(response.errorBody()))
                 }
             } catch (uhe: UnknownHostException) {
-                Logger.e(uhe, uhe.message ?: "")
+                Timber.e(uhe)
                 throw ApiExceptionUtil.apiException(
                     ErrorResponse(
                         code = ExceptionCodeStatus.InnerNoConnectivityException.code,
@@ -90,7 +90,7 @@ class AppDataRepositoryImpl @Inject constructor(
         orderBy: String
     ): Flow<Pager<Int, PhotoDetailEntity>> {
         return flow {
-            Logger.e("#### https://api.unsplash.com/search/photos?query=${query}")
+            Timber.e("#### https://api.unsplash.com/search/photos?query=${query}")
 
             searchPhotoDetailPagingSource?.invalidate()
             if (searchPhotoDetailPagingSource == null) {
@@ -136,11 +136,11 @@ class AppDataRepositoryImpl @Inject constructor(
                     }
 
                 } else {
-                    Logger.d("#### response: ${response.errorBody().toString()}")
+                    Timber.d("#### response: ${response.errorBody().toString()}")
                     throw ApiExceptionUtil.apiException(errorConverter(response.errorBody()))
                 }
             } catch (uhe: UnknownHostException) {
-                Logger.e(uhe, uhe.message ?: "")
+                Timber.e(uhe)
                 throw ApiExceptionUtil.apiException(
                     ErrorResponse(
                         code = ExceptionCodeStatus.InnerNoConnectivityException.code,
@@ -175,11 +175,11 @@ class AppDataRepositoryImpl @Inject constructor(
                         )
                     )
                 } else {
-                    Logger.d("#### response: ${response.errorBody().toString()}")
+                    Timber.d("#### response: ${response.errorBody().toString()}")
                     throw ApiExceptionUtil.apiException(errorConverter(response.errorBody()))
                 }
             } catch (uhe: UnknownHostException) {
-                Logger.e(uhe, uhe.message ?: "")
+                Timber.e(uhe, uhe.message ?: "")
                 throw ApiExceptionUtil.apiException(
                     ErrorResponse(
                         code = ExceptionCodeStatus.InnerNoConnectivityException.code,
@@ -268,9 +268,9 @@ class AppDataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookmarkInfoPagingList(perPage: Int): Flow<Pager<Int, PhotoDetailEntity>> {
-        Logger.d("#### AppDatabaseRepositoryImpl-getBookmarkInfoPagingList")
+        Timber.d("#### AppDatabaseRepositoryImpl-getBookmarkInfoPagingList")
         return flow {
-            Logger.d("#### AppDatabaseRepositoryImpl-getBookmarkInfoPagingList-2")
+            Timber.d("#### AppDatabaseRepositoryImpl-getBookmarkInfoPagingList-2")
             emit(Pager(
                 config = PagingConfig(
                     pageSize = 10,

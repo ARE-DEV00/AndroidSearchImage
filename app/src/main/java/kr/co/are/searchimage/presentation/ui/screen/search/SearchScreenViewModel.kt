@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,6 +16,7 @@ import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 import kr.co.are.searchimage.domain.usecase.GetPhotoInfoPagingListUseCase
 import kr.co.are.searchimage.domain.usecase.GetPhotoInfoListUseCase
 import kr.co.are.searchimage.domain.usecase.GetSearchPhotoInfoPagingListUseCase
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,7 +44,7 @@ class SearchScreenViewModel @Inject constructor(
         viewModelScope.launch {
             getPhotoInfoPagingListUseCase()
                 .catch {
-                    Logger.e(it, it.message.toString())
+                    Timber.e(it)
                 }
                 .collectLatest {
                     _photoListPager.value = it.flow.cachedIn(viewModelScope)
@@ -56,7 +56,7 @@ class SearchScreenViewModel @Inject constructor(
         viewModelScope.launch {
             getSearchPhotoInfoPagingListUseCase(text)
                 .catch {
-                    Logger.e(it, it.message.toString())
+                    Timber.e(it)
                 }
                 .collectLatest {
                     _searchPhotoListPager.value = it.flow.cachedIn(viewModelScope)

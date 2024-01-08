@@ -12,5 +12,7 @@
     <string name="photo_detail_size">Size</string>
     <string name="photo_detail_created_at">Created At</string>
 
+    <string name="message_toast_exit_app">버튼을 한 번 더 누르면 종료됩니다.</string>
+
 
 </resources>
