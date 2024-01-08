@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,7 +34,6 @@ import kr.co.are.searchimage.presentation.ui.composable.photolist.PhotoPagingLis
 import kr.co.are.searchimage.presentation.ui.composable.searchtextfield.SearchTextField
 import kr.co.are.searchimage.presentation.ui.screen.base.AppHeaderScreen
 import kr.co.are.searchimage.presentation.ui.theme.Gray50
-import kr.co.are.searchimage.presentation.ui.theme.Typography
 import timber.log.Timber
 
 @Composable

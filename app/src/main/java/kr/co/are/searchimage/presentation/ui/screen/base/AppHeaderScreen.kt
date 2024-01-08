@@ -1,6 +1,5 @@
 package kr.co.are.searchimage.presentation.ui.screen.base
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth

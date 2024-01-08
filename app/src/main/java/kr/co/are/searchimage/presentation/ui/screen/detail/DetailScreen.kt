@@ -9,16 +9,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,10 +27,9 @@ import kr.co.are.searchimage.presentation.ui.composable.photodetail.PhotoDetail
 import kr.co.are.searchimage.presentation.ui.screen.base.AppHeaderScreen
 import kr.co.are.searchimage.presentation.ui.theme.Gray50
 import kr.co.are.searchimage.presentation.ui.theme.White
+import kr.co.are.searchimage.presentation.utils.DateUtil
 import timber.log.Timber
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
     navController: NavController,
@@ -70,7 +64,7 @@ fun DetailScreen(
                             author = photoDetailEntity.imageInfo.author,
                             width = photoDetailEntity.imageInfo.width,
                             height = photoDetailEntity.imageInfo.height,
-                            createdAt = photoDetailEntity.imageInfo.createdAt,
+                            createdAt = DateUtil.convertUtcToLocal(photoDetailEntity.imageInfo.createdAt),
                             imageUrl = photoDetailEntity.imageUrl.regular,
                             onTabImage = {
                                 viewModel.setImageViewerVisibility(true)
