@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -38,7 +39,10 @@ fun DetailScreen(
 ) {
     Timber.d("#### DetailScreen-ID:${id}")
 
-    viewModel.getPhotoDetailInfo(id)
+    LaunchedEffect(true){
+        viewModel.getPhotoDetailInfo(id)
+    }
+
     val photoDetailEntity = viewModel.loadPhotoDetailEntity.observeAsState().value
     val isBookmark = viewModel.isBookmark.observeAsState().value ?: false
     val isImageViewer by viewModel.isImageViewer

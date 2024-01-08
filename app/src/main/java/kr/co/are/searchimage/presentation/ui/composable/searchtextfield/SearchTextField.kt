@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
@@ -21,8 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.ui.unit.dp
+import kr.co.are.searchimage.presentation.ui.composable.header.AppHeader
 import kr.co.are.searchimage.presentation.ui.theme.BgTextField
 import kr.co.are.searchimage.presentation.ui.theme.Gray600
 import kr.co.are.searchimage.presentation.ui.theme.Gray800
@@ -39,6 +45,9 @@ fun SearchTextField(
         value = text,
         onValueChange = { onTextChanged(it) },
         textStyle = LocalTextStyle.current.copy(color = Gray800),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
+        ),
         decorationBox = { innerTextField ->
             Box(
                 modifier = modifier
@@ -81,4 +90,18 @@ fun SearchTextField(
         },
     )
 
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SearchTextFieldPreview() {
+    SearchTextField(
+        text ="테스트",
+        hint ="Search",
+        modifier = Modifier,
+        onTextChanged = {
+
+        }
+
+    )
 }

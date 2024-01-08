@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -45,6 +46,11 @@ fun SearchScreen(
     val searchPhotoListPager = viewModel.searchPhotoListPager.collectAsLazyPagingItems()
     val searchText = viewModel.searchText
     val focusManager = LocalFocusManager.current
+
+    LaunchedEffect(true){
+        viewModel.getPhotoInfoPagingList()
+        viewModel.getSearchPhotoInfoPagingList(searchText.value)
+    }
 
     AppHeaderScreen(
         headerTitle = stringResource(id = R.string.screen_search),
@@ -103,7 +109,7 @@ fun SearchScreen(
 }
 
 @Composable
-fun DoubleBackPressHandler(enabled: Boolean = true) {
+fun DoubleBackPressHandler(enabled: Boolean = true,) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val isBackPressed = remember { mutableStateOf(false) }

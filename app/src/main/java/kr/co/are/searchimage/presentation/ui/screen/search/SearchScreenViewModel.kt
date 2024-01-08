@@ -39,7 +39,7 @@ class SearchScreenViewModel @Inject constructor(
         getSearchPhotoInfoPagingList("")
     }
 
-    private fun getPhotoInfoPagingList() {
+    fun getPhotoInfoPagingList() {
         viewModelScope.launch {
             getPhotoInfoPagingListUseCase()
                 .catch {
@@ -51,7 +51,7 @@ class SearchScreenViewModel @Inject constructor(
         }
     }
 
-    private fun getSearchPhotoInfoPagingList(text:String){
+    fun getSearchPhotoInfoPagingList(text:String){
         viewModelScope.launch {
             getSearchPhotoInfoPagingListUseCase(text)
                 .catch {
