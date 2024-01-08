@@ -1,5 +1,7 @@
 package kr.co.are.searchimage.presentation.ui.screen.detail
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,6 +32,8 @@ class DetailScreenViewModel @Inject constructor(
     private val _isBookmark = MutableLiveData<Boolean>()
     val isBookmark: LiveData<Boolean> = _isBookmark
 
+    private val _isImageViewer = mutableStateOf(false)
+    val isImageViewer: State<Boolean> get() = _isImageViewer
 
     fun getPhotoDetailInfo(id: String) {
         viewModelScope.launch {
@@ -61,7 +65,7 @@ class DetailScreenViewModel @Inject constructor(
         }
     }
 
-    fun addBookmarkInfo(id:String){
+    fun addBookmarkInfo(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadPhotoDetailEntity.value?.let {
                 addBookmarkInfoDbUseCase(it)
@@ -74,7 +78,7 @@ class DetailScreenViewModel @Inject constructor(
         }
     }
 
-    fun deleteBookmarkInfo(id:String){
+    fun deleteBookmarkInfo(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             deleteBookmarkInfoDbUseCase(id)
                 .catch {
@@ -83,6 +87,10 @@ class DetailScreenViewModel @Inject constructor(
                     _isBookmark.postValue(false)
                 }
         }
+    }
+
+    fun setImageViewerVisibility(value: Boolean) {
+        _isImageViewer.value = value
     }
 
 }

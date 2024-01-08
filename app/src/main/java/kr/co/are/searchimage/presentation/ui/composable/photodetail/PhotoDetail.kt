@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import kr.co.are.searchimage.R
+import kr.co.are.searchimage.presentation.ui.composable.header.clickableOnce
 import kr.co.are.searchimage.presentation.ui.theme.Gray300
 import kr.co.are.searchimage.presentation.ui.theme.Gray500
 import kr.co.are.searchimage.presentation.ui.theme.Typography
@@ -37,6 +38,7 @@ fun PhotoDetail(
     height: Int,
     createdAt: String,
     imageUrl: String,
+    onTabImage: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -53,7 +55,10 @@ fun PhotoDetail(
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .padding(top = 20.dp)
-                .clip(RoundedCornerShape(15.dp)),
+                .clip(RoundedCornerShape(15.dp))
+                .clickableOnce {
+                    onTabImage()
+                },
             contentScale = ContentScale.Crop
         )
 
@@ -174,13 +179,14 @@ fun PhotoDetail(
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PhotoDetailPreview() {
     PhotoDetail(
         id = "id",
         author = "author",
         width = 1000,
         height = 4000,
         createdAt = "",
-        imageUrl = "https://images.unsplash.com/photo-1682686581660-3693f0c588d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NDc3NTB8MXwxfGFsbHwxfHx8fHx8Mnx8MTcwNDU0NTYxOXw&ixlib=rb-4.0.3&q=80&w=1080",
+        imageUrl = "",
+        onTabImage = {}
     )
 }
