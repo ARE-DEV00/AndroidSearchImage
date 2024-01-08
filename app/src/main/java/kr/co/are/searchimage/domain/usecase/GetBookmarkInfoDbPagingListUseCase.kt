@@ -5,15 +5,15 @@ import com.orhanobut.logger.Logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
-import kr.co.are.searchimage.domain.repositroy.AppDatabaseRepository
+import kr.co.are.searchimage.domain.repositroy.AppDataRepository
 import javax.inject.Inject
 
 class GetBookmarkInfoDbPagingListUseCase @Inject constructor(
-    private val appDatabaseRepository: AppDatabaseRepository
+    private val dataRepository: AppDataRepository
 ) {
     suspend operator fun invoke(perPage: Int = 10): Flow<Pager<Int, PhotoDetailEntity>> {
         return channelFlow {
-            appDatabaseRepository.getBookmarkInfoPagingList(perPage)
+            dataRepository.getBookmarkInfoPagingList(perPage)
                 .catch {
                     it.printStackTrace()
                 }

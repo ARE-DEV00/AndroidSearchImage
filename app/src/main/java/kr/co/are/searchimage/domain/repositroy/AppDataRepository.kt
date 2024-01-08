@@ -1,14 +1,13 @@
-/*
 package kr.co.are.searchimage.domain.repositroy
 
 
 import androidx.paging.Pager
-import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 import kr.co.are.searchimage.domain.entitiy.SearchPhotoListEntity
 
-interface ApiRepository {
+interface AppDataRepository {
+    //API
     suspend fun getPhotoList(
         page: Int,
         perPage: Int,
@@ -35,5 +34,35 @@ interface ApiRepository {
         orderBy: String = "latest"
     ): Flow<Pager<Int, PhotoDetailEntity>>
 
+    //ROOM
+    suspend fun addBookmarkInfo(
+        id: String,
+        author: String,
+        width: Int,
+        height: Int,
+        createdAt: String,
+        description: String,
+
+        imageUrlRaw: String,
+        imageUrlFull: String,
+        imageUrlRegular: String,
+        imageUrlSmall: String,
+        imageUrlThumb: String,
+    ): Flow<Boolean>
+
+    suspend fun deleteBookmarkInfo(
+        id: String,
+    ): Flow<Boolean>
+
+    suspend fun getBookmarkInfo(
+        id: String,
+    ): Flow<PhotoDetailEntity?>
+
+    suspend fun getBookmarkInfoList(
+    ): Flow<List<PhotoDetailEntity>>
+
+    suspend fun getBookmarkInfoPagingList(
+        perPage: Int
+    ): Flow<Pager<Int, PhotoDetailEntity>>
+
 }
-*/

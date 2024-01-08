@@ -3,11 +3,15 @@ package kr.co.are.searchimage.data.remote.api.pagingsoruce
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.orhanobut.logger.Logger
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kr.co.are.searchimage.data.local.room.databases.AppDatabase
 import kr.co.are.searchimage.data.remote.api.ApiService
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 
 class SearchPhotoDetailPagingSource(
     private val apiService: ApiService,
+    private val appDatabase: AppDatabase,
     private var query: String,
     private val perPage: Int,
     private val orderBy: String,
@@ -24,8 +28,14 @@ class SearchPhotoDetailPagingSource(
             )
             val photoDetailResponseList = response.body()?.results ?: emptyList()
 
+
             val photoDetailEntityList =
                 photoDetailResponseList.map { photoDetailResponse ->
+                    val isBookmark = withContext(Dispatchers.IO) {
+                        val selectBookmarkInfoById = appDatabase.bookmarkInfoDao()
+                            .selectBookmarkInfoById(id = photoDetailResponse.id)
+                        selectBookmarkInfoById != null
+                    }
                     PhotoDetailEntity(
                         imageInfo = PhotoDetailEntity.ImageInfo(
                             id = photoDetailResponse.id,
@@ -33,7 +43,8 @@ class SearchPhotoDetailPagingSource(
                             width = photoDetailResponse.width ?: -1,
                             height = photoDetailResponse.height ?: -1,
                             createdAt = photoDetailResponse.createdAt ?: "",
-                            description = photoDetailResponse.description ?: ""
+                            description = photoDetailResponse.description ?: "",
+                            isBookmark = isBookmark
                         ),
                         imageUrl = PhotoDetailEntity.ImageUrl(
                             raw = photoDetailResponse.urls?.raw ?: "",

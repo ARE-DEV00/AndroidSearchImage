@@ -1,17 +1,15 @@
 package kr.co.are.searchimage.domain.usecase
 
-import com.orhanobut.logger.Logger
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
-import kr.co.are.searchimage.domain.repositroy.AppDatabaseRepository
+import kr.co.are.searchimage.domain.repositroy.AppDataRepository
 import javax.inject.Inject
 
 class AddBookmarkInfoDbUseCase @Inject constructor(
-    private val appDatabaseRepository: AppDatabaseRepository
+    private val dataRepository: AppDataRepository
 ) {
     suspend operator fun invoke(photoDetailEntity: PhotoDetailEntity): Flow<Boolean> {
-        return appDatabaseRepository.addBookmarkInfo(
+        return dataRepository.addBookmarkInfo(
             id = photoDetailEntity.imageInfo.id,
             author = photoDetailEntity.imageInfo.author,
             width = photoDetailEntity.imageInfo.width,

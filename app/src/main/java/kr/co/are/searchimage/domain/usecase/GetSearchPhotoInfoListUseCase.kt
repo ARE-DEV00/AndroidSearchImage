@@ -4,11 +4,11 @@ import com.orhanobut.logger.Logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kr.co.are.searchimage.domain.entitiy.SearchPhotoListEntity
-import kr.co.are.searchimage.domain.repositroy.ApiRepository
+import kr.co.are.searchimage.domain.repositroy.AppDataRepository
 import javax.inject.Inject
 
 class GetSearchPhotoInfoListUseCase @Inject constructor(
-    private val apiRepository: ApiRepository
+    private val dataRepository: AppDataRepository
 ) {
     suspend operator fun invoke(
         query: String,
@@ -16,7 +16,7 @@ class GetSearchPhotoInfoListUseCase @Inject constructor(
         perPage: Int
     ): Flow<SearchPhotoListEntity> {
         return channelFlow {
-            apiRepository.getSearchPhotoList(query, page, perPage)
+            dataRepository.getSearchPhotoList(query, page, perPage)
                 .catch {
                     Logger.e("", it)
                 }

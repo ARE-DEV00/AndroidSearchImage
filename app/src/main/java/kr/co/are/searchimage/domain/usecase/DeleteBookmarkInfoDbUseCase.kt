@@ -1,15 +1,14 @@
 package kr.co.are.searchimage.domain.usecase
 
 import kotlinx.coroutines.flow.*
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
-import kr.co.are.searchimage.domain.repositroy.AppDatabaseRepository
+import kr.co.are.searchimage.domain.repositroy.AppDataRepository
 import javax.inject.Inject
 
 class DeleteBookmarkInfoDbUseCase @Inject constructor(
-    private val appDatabaseRepository: AppDatabaseRepository
+    private val dataRepository: AppDataRepository
 ) {
     suspend operator fun invoke(id: String): Flow<Boolean> {
-        return appDatabaseRepository.deleteBookmarkInfo(
+        return dataRepository.deleteBookmarkInfo(
             id = id
         )
     }

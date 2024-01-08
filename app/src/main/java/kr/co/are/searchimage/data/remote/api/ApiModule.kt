@@ -7,8 +7,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kr.co.are.searchimage.BuildConfig
-import kr.co.are.searchimage.data.remote.api.repository.ApiRepositoryImpl
-import kr.co.are.searchimage.domain.repositroy.ApiRepository
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -32,28 +30,14 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient():OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
         val loggingInterceptor = HttpLoggingInterceptor()
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             httpClient.addInterceptor(loggingInterceptor)
         }
-
-        val trustAllCerts: Array<TrustManager> = arrayOf(object : X509TrustManager {
-            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-            }
-
-            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-            }
-
-            override fun getAcceptedIssuers(): Array<X509Certificate> {
-                return arrayOf()
-            }
-        })
-        val sslContext = SSLContext.getInstance("SSL")
-        sslContext.init(null, trustAllCerts, SecureRandom())
 
         return httpClient.readTimeout(20, TimeUnit.SECONDS).addInterceptor { chain ->
             val request: Request = chain.request().newBuilder()
@@ -62,7 +46,6 @@ object ApiModule {
                 .build()
             chain.proceed(request)
         }
-            .sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as X509TrustManager)
             .hostnameVerifier({ _, _ -> true })
             .addInterceptor(loggingInterceptor)
             .retryOnConnectionFailure(true)
@@ -88,9 +71,5 @@ object ApiModule {
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
-
-    @Singleton
-    @Provides
-    fun provideMainRepository(apiService: ApiService, retrofit: Retrofit):ApiRepository = ApiRepositoryImpl(apiService, retrofit)
 
 }

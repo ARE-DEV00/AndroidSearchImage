@@ -2,11 +2,15 @@ package kr.co.are.searchimage.data.remote.api.pagingsoruce
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kr.co.are.searchimage.data.local.room.databases.AppDatabase
 import kr.co.are.searchimage.data.remote.api.ApiService
 import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
 
 class PhotoDetailPagingSource(
     private val apiService: ApiService,
+    private val appDatabase: AppDatabase,
     private val perPage: Int,
 ) :
     PagingSource<Int, PhotoDetailEntity>() {
@@ -19,6 +23,11 @@ class PhotoDetailPagingSource(
 
             val photoDetailEntityList =
                 photoDetailResponseList.map { photoDetailResponse ->
+                    val isBookmark = withContext(Dispatchers.IO) {
+                        val selectBookmarkInfoById = appDatabase.bookmarkInfoDao()
+                            .selectBookmarkInfoById(id = photoDetailResponse.id)
+                        selectBookmarkInfoById != null
+                    }
                     PhotoDetailEntity(
                         imageInfo = PhotoDetailEntity.ImageInfo(
                             id = photoDetailResponse.id,
@@ -26,14 +35,15 @@ class PhotoDetailPagingSource(
                             width = photoDetailResponse.width ?: -1,
                             height = photoDetailResponse.height ?: -1,
                             createdAt = photoDetailResponse.createdAt ?: "",
-                            description = photoDetailResponse.description ?: ""
+                            description = photoDetailResponse.description ?: "",
+                            isBookmark = isBookmark
                         ),
                         imageUrl = PhotoDetailEntity.ImageUrl(
-                            raw = photoDetailResponse.urls?.raw?: "",
-                            full = photoDetailResponse.urls?.full?: "",
-                            regular = photoDetailResponse.urls?.regular?: "",
-                            small = photoDetailResponse.urls?.small?: "",
-                            thumb = photoDetailResponse.urls?.thumb?: "",
+                            raw = photoDetailResponse.urls?.raw ?: "",
+                            full = photoDetailResponse.urls?.full ?: "",
+                            regular = photoDetailResponse.urls?.regular ?: "",
+                            small = photoDetailResponse.urls?.small ?: "",
+                            thumb = photoDetailResponse.urls?.thumb ?: "",
                         )
                     )
                 }
