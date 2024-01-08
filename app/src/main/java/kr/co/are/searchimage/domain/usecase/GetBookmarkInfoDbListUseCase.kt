@@ -1,7 +1,7 @@
 package kr.co.are.searchimage.domain.usecase
 
 import kotlinx.coroutines.flow.*
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
+import kr.co.are.searchimage.domain.entity.PhotoDetailEntity
 import kr.co.are.searchimage.domain.repositroy.AppDataRepository
 import javax.inject.Inject
 

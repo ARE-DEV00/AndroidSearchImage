@@ -3,8 +3,8 @@ package kr.co.are.searchimage.domain.repositroy
 
 import androidx.paging.Pager
 import kotlinx.coroutines.flow.Flow
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
-import kr.co.are.searchimage.domain.entitiy.SearchPhotoListEntity
+import kr.co.are.searchimage.domain.entity.PhotoDetailEntity
+import kr.co.are.searchimage.domain.entity.SearchPhotoListEntity
 
 interface AppDataRepository {
     //API

@@ -1,4 +1,4 @@
-package kr.co.are.searchimage.domain.entitiy
+package kr.co.are.searchimage.domain.entity
 
 data class SearchPhotoListEntity(
     val total: Int,

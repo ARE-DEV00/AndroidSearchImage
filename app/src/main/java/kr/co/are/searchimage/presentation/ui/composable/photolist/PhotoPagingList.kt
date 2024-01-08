@@ -1,7 +1,6 @@
 package kr.co.are.searchimage.presentation.ui.composable.photolist
 
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
+import kr.co.are.searchimage.domain.entity.PhotoDetailEntity
 import kr.co.are.searchimage.presentation.ui.composable.header.clickableOnce
 
 @Composable

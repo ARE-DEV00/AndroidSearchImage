@@ -25,4 +25,7 @@ data class TableBookmarkInfoEntity(
     val imageUrlSmall: String,
     val imageUrlThumb: String,
 
+    var createdTime: LocalDateTime = LocalDateTime.now(),
+    var modifiedTime: LocalDateTime = LocalDateTime.now(ZoneId.from(ZoneOffset.UTC))
+
 )

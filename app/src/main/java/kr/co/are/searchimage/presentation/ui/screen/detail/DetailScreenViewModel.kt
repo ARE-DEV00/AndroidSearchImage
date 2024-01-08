@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
+import kr.co.are.searchimage.domain.entity.PhotoDetailEntity
 import kr.co.are.searchimage.domain.usecase.AddBookmarkInfoDbUseCase
 import kr.co.are.searchimage.domain.usecase.DeleteBookmarkInfoDbUseCase
 import kr.co.are.searchimage.domain.usecase.GetBookmarkInfoDbUseCase

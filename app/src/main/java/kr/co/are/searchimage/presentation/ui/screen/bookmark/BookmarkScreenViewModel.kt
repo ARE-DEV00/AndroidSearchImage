@@ -5,13 +5,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
+import kr.co.are.searchimage.domain.entity.PhotoDetailEntity
 import kr.co.are.searchimage.domain.usecase.GetBookmarkInfoDbPagingListUseCase
 import timber.log.Timber
 import javax.inject.Inject

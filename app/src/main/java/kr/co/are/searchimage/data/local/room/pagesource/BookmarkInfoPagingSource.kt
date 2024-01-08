@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.are.searchimage.data.local.room.databases.AppDatabase
 import kr.co.are.searchimage.data.local.room.entity.TableBookmarkInfoEntity
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
+import kr.co.are.searchimage.domain.entity.PhotoDetailEntity
 
 class BookmarkInfoPagingSource(private val appDatabase: AppDatabase, private val perPage: Int) :
     PagingSource<Int, PhotoDetailEntity>() {

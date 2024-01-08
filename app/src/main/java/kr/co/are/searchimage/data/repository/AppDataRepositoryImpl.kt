@@ -14,9 +14,9 @@ import kr.co.are.searchimage.data.remote.api.model.response.PhotoDetailResponse
 import kr.co.are.searchimage.data.remote.api.pagingsoruce.PhotoDetailPagingSource
 import kr.co.are.searchimage.data.remote.api.pagingsoruce.SearchPhotoDetailPagingSource
 import kr.co.are.searchimage.data.remote.utils.ApiExceptionUtil
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity
-import kr.co.are.searchimage.domain.entitiy.PhotoDetailEntity.*
-import kr.co.are.searchimage.domain.entitiy.SearchPhotoListEntity
+import kr.co.are.searchimage.domain.entity.PhotoDetailEntity
+import kr.co.are.searchimage.domain.entity.PhotoDetailEntity.*
+import kr.co.are.searchimage.domain.entity.SearchPhotoListEntity
 import kr.co.are.searchimage.domain.enums.ExceptionCodeStatus
 import kr.co.are.searchimage.domain.repositroy.AppDataRepository
 import okhttp3.ResponseBody
