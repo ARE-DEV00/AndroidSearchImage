@@ -9,4 +9,4 @@ SearchImage앱은 사용자가 이미지를 검색하고, 상세 이미지를 �
 - 이미지 북마크
 
 ## 상세 설명
-- [LINK](https://electric-utahraptor-8f4.notion.site/Android-SearchImage-074720312ed24a7da41f7fc19e641792?pvs=4)
+- [LINK](https://electric-utahraptor-8f4.notion.site/Android-SearchImage-4235ac463b5f44cbb0d29c08fd28af03?pvs=4)
